@@ -18,6 +18,7 @@
   (define value-of-program 
     (lambda (pgm)
       (initialize-allstacks!)
+      (set! counter 1)
       (cases program pgm
         (a-program (exp1)
           (value-of exp1 (init-env))))))
@@ -32,7 +33,7 @@
       (value-of-old exp env)))
 
 
- (define counter 0)
+ (define counter 1)
   ;; value-of-old : Exp * Env -> ExpVal
   ;; Page: 83
   (define value-of-old
@@ -79,13 +80,12 @@
           (proc-val (procedure var body env)))
 
         (call-exp (rator rand)
-          (let ((proc (expval->proc (value-of rator env)))
-                (arg (value-of rand env)))
-            ;;PART 1:
-            ;;
-            ;;
-            ;;
-            (apply-procedure proc arg)))
+                  (let ((proc (expval->proc (value-of rator env)))
+                        (arg (value-of rand env)))
+                    (begin
+                      (print_counter)
+                      (set! counter (+ counter 1))
+                      (apply-procedure proc arg))))
 
         (letrec-exp (p-name b-var p-body letrec-body)
           (value-of letrec-body
@@ -100,6 +100,11 @@
       (cases proc proc1
         (procedure (var body saved-env)
           (value-of body (extend-env var arg saved-env))))))
+
+  (define (print_counter)
+    (display "# of procedure calls: ")
+    (display counter)
+    (newline))
   
   )
   
