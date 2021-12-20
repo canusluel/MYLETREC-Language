@@ -21,15 +21,17 @@
       
       ; #####################################################
       ; ###### ENTER YOUR CODE HERE
+      ; ###### you need to extend the environment with count 
+      ; ###### variable so that it could be increased later on.
+      ; #####################################################    
       ; #####################################################
-      (extend-env 
-     'i (num-val 1)
-      ; #####################################################
+      (extend-env
+        'count (num-val 1)
        (extend-env
         'v (num-val 5)
         (extend-env
          'x (num-val 10)
-         (empty-env)))))
+         (empty-env))))))
 
 ;;;;;;;;;;;;;;;; environment constructors and observers ;;;;;;;;;;;;;;;;
 
@@ -47,9 +49,20 @@
               ; ###### ENTER YOUR CODE HERE, YOU MAY DELETE
               ; ###### THE CODE BELOW, IT IS PUT TO PROVIDE A RUNING
               ; ###### CODE BASELINE.
+              ; ######
+              ; ###### You need to check the given value, and take 
+              ; ###### care of the case where the given value is a 
+              ; ###### nested-procedure. If it is a nested-procedure, 
+              ; ###### a proc-val with a nested-procedure should be 
+              ; ###### returned. Otherwise, it should behave
+              ; ###### as it normally does.
               ; #####################################################
+              (cases proc val
+                (procedure (bvar body env) val)
+                (nested-procedure (bvar count name body env)
+                                  (proc-val (nested-procedure bvar count name body env))))   
+              
 
-              val
               ; #####################################################
                         
               (apply-env saved-env search-sym))
@@ -62,8 +75,13 @@
         
         ; #####################################################
         ; ###### ENTER YOUR CODE HERE
+        ; ###### You need to add the variant extend-env-rec-nested, 
+        ; ###### for the nested procedures.
         ; #####################################################
-
+        (extend-env-rec-nested (p-name b-var p-body saved-env count)
+          (if (eqv? search-sym p-name)
+            (proc-val (nested-procedure b-var count p-name p-body env))          
+            (apply-env saved-env search-sym)))
 
 
         ; #####################################################

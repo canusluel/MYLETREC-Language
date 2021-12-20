@@ -46,26 +46,38 @@
         ; ###### THE LINES BELOW ARE PUT ONLY TO PROVIDE YOU
         ; ###### A WORKING CODE BASELINE. THEY ARE REQUIRED
         ; ###### TO CHANGE.
+        ; ######
+        ; ###### Here, you need to translate the original
+        ; ###### proc-exp, call-exp, and letrec-exp to the 
+        ; ###### nested versions. To understand how translation
+        ; ###### works, you can check the lexaddr code in the
+        ; ###### EOPL GUI. 
+        ; ###### In this part, you will also do the count 
+        ; ###### incrementation!!!
         ; #####################################################
 
-        (proc-exp (var body)
-          (proc-exp
+        (proc-nested-exp (var count name body)
+          (begin
+             (extend-env count (+ 1 (apply-env env count)))
+             (proc-nested-exp
             var
+            count
             (translation-of body env)
           )
-        )
-        
-        (call-exp (rator rand)
-          (call-exp 
-            (translation-of rator env)
-            (translation-of rand env)
-          )
+         )
         )
 
-        (letrec-exp (p-name b-var p-body letrec-body)
-          (letrec-exp
+        (call-nested-exp (rator rand count)
+          (call-nested-exp
+            (translation-of rator env)
+            (translation-of rand env)
+            count))
+
+        (letrec-nested-exp (p-name b-var b-count p-body letrec-body)
+          (letrec-nested-exp
             p-name
             b-var
+            b-count
             (translation-of p-body env)
             (translation-of letrec-body env) 
           )

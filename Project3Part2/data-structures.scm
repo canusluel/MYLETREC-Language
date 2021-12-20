@@ -59,12 +59,21 @@
       
     ; #####################################################
     ; ###### ENTER YOUR CODE HERE
+    ; ###### you need to define a variant to the procedure; 
+    ; ###### the nested-procedure
+    ; ###### this variant takes 2 additional parameter than 
+    ; ###### the original version of procedure, the count 
+    ; ###### variable and the name of the procedure.
     ; #####################################################
-
-    
+    (nested-procedure
+      (bvar symbol?)
+      (count symbol?)
+      (name symbol?)
+      (body expression?)
+      (env environment?)
 
     ; #####################################################
-  )
+  ))
 
   ;; Page: 86
   (define-datatype environment environment?
@@ -79,14 +88,23 @@
       (body expression?)
       (saved-env environment?))
     
-    ; #####################################################
+    ; ########################################################
     ; ###### ENTER YOUR CODE HERE
-    ; #####################################################
+    ; ###### you need to define a variant to the environment; 
+    ; ###### extend-env-rec-nested
+    ; ###### this variant is the nested version of the 
+    ; ###### extend-env-rec. It takes 1 additional symbol as 
+    ; ###### the count variable.
+    ; ########################################################
+    (extend-env-rec-nested
+      (id symbol?)
+      (bvar symbol?)
+      (body expression?)
+      (saved-env environment?)
+      (count symbol?)
 
-    
-
-    ; #####################################################
+    ; ########################################################
       
   )
 
-)
+))

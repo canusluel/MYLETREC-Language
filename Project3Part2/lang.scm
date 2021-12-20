@@ -56,10 +56,13 @@
       
       ; #####################################################
       ; ###### ENTER YOUR CODE HERE
+      ; ###### you need to add the expression variants; 
+      ; ###### proc-nested, call-nested, letrec-nested as 
+      ; ###### described in the pdf file.
       ; #####################################################
       (expression
         ("proc-nested"
-           "("identifier "," identifier "," identifier ")")
+           "("identifier "," identifier "," identifier ")" expression)
         proc-nested-exp)
       (expression
         ("call-nested"

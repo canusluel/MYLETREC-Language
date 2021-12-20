@@ -83,9 +83,26 @@
         
         ; #####################################################
         ; ###### ENTER YOUR CODE HERE
+        ; ###### You need to implement the value-of methods of
+        ; ###### proc-nested-exp, call-nested-exp, and 
+        ; ###### letrec-nested-exp. They should be similar to 
+        ; ###### the proc-exp, letrec-exp and call-exp versions.
+        ; ###### However, please keep in mind the nested-procedure
+        ; ###### type and extend-env-rec-nested procedure in other
+        ; ###### files while implementing this structure. 
         ; #####################################################
-        
 
+        (proc-nested-exp (var b-count p-name body)
+          (proc-val (nested-procedure var b-count p-name body env)))
+
+        (call-nested-exp (rator rand count)
+          (let ((proc (expval->proc (value-of rator env)))
+                (arg (value-of rand env)))
+            (apply-procedure proc arg)))
+
+        (letrec-nested-exp (p-name b-var b-count p-body letrec-body)
+          (value-of letrec-body
+            (extend-env-rec-nested p-name b-var p-body env b-count)))
 
         ; #####################################################
       
@@ -102,9 +119,19 @@
         
         ; #####################################################
         ; ###### ENTER YOUR CODE HERE
+        ; ###### Here, you need to handle the case where proc 
+        ; ###### is not a procedure but a nested-procedure. 
+        ; ###### Since we also keep the count as a parameter, 
+        ; ###### we also need to extend the environment with
+        ; ###### the count value.
+        ; ###### Additionally, please not that no matter how the
+        ; ###### procedure is defined, all procedures are applied
+        ; ###### by using this part. This information may be
+        ; ###### helpful for your implementation.
         ; #####################################################
 
-
+        (nested-procedure (var count name body saved-env)
+          (value-of body (extend-env var arg saved-env)))
 
         ; #####################################################
       
