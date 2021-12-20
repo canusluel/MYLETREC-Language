@@ -57,7 +57,18 @@
       ; #####################################################
       ; ###### ENTER YOUR CODE HERE
       ; #####################################################
-
+      (expression
+        ("proc-nested"
+           "("identifier,identifier,identifier ")")
+        proc-nested-exp)
+      (expression
+        ("call-nested"
+           "("expressionexpressionexpression ")")
+        call-nested-exp)
+      (expression
+        ("letrec-nested"
+           identifier "("identifier,identifier ")"  "=" expression "in" expression)
+        letrec-nested-exp)
 
       ; #####################################################
 
